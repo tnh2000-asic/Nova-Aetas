@@ -1,0 +1,50 @@
+CAPI=2:
+
+name: mosaic:common:fifo:1.0
+description: FIFO and pipe components including perq_fifo
+
+filesets:
+  rtl:
+    files:
+      - pipes_v.sv
+      - pipe_rv.sv
+      - pipes_rv.sv
+      - pipes.sv
+      - circular_fifo.sv
+      - circular_fifo_almost_full.sv
+      - mem_1r1w_fifo.sv
+      - fifo_monitor.sv
+      - fifo_monitor_threshold.sv
+      - perq_fifo/qstate.sv
+      - perq_fifo/qstate_sram.sv
+      - perq_fifo/free_list.sv
+      - perq_fifo/free_list_sram.sv
+      - perq_fifo/perq_fifo.sv
+      - perq_fifo/perq_fifo_sram.sv
+    file_type: systemVerilogSource
+    depend:
+      - mosaic:common:mem:1.0
+      - mosaic:common:edac:1.0
+
+  tb:
+    files:
+      - ../../../sim/common/fifo/pipe_rv/pipe_rv_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl]
+    toplevel: perq_fifo
+
+  filelist:
+    filesets: [rtl]
+
+  sim:
+    default_tool: xcelium
+    filesets: [rtl, tb]
+    toplevel: pipe_rv_tb
+    tools:
+      xcelium:
+        xmsim_options:
+          - -sv
+          - -access +rwc
