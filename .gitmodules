@@ -1,0 +1,3 @@
+[submodule "hw/ip/pulp"]
+	path = hw/ip/pulp
+	url = https://github.com/pulp/pulpcore.git
